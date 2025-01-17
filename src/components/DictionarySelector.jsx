@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react';
 
-const DictionarySelector = () => {
-    const [words, setWords] = useState([]); // State to hold the fetched data
+const DictionarySelector = ({setTag}) => {
+    const [dictionaries, setDictionaries] = useState([]); // State to hold the fetched data
     const [loading, setLoading] = useState(true); // State to show a loading indicator
     const [error, setError] = useState(null); // State to show an error message
+    const [selectedDictionary, setSelectedDictionary] = useState(0);
+
+
+
+    const changeTag = (id) => {
+        setSelectedDictionary(id)
+        setTag(dictionaries[id].tags[0])
+    }
+
+
+
 
     useEffect(() => {
         // Fetch data from an API
@@ -15,7 +26,7 @@ const DictionarySelector = () => {
                 return response.json();
             })
             .then((data) => {
-                setWords(data.dictionaries); // Store the data in state
+                setDictionaries(data.dictionaries); // Store the data in state
                 setLoading(false); // Data is loaded
             })
             .catch((err) => {
@@ -26,14 +37,13 @@ const DictionarySelector = () => {
 
     return (
         <div>
-            <h1>Dictionary Selector</h1>
+            <h1 className="text-2xl">Dictionary Selector</h1>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             {!loading && !error && (
                 <ul>
-                    {words.map((word, index) => (
-                        <button key={index}>{word.title}</button> // Adjust based on the API response structure
-                        //word.tags send as a prop
+                    {dictionaries.map((dictionary, index) => (
+                        <button onClick={() => changeTag(index)} key={dictionary._id} style={{ backgroundColor: index === selectedDictionary ? "green" : "blue", color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}>{dictionary.title}</button>
                     //store as a prop to wordsearch
                     ))}
                 </ul>
