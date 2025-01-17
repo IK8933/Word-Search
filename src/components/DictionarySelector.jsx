@@ -4,17 +4,14 @@ const DictionarySelector = ({setTag}) => {
     const [dictionaries, setDictionaries] = useState([]); // State to hold the fetched data
     const [loading, setLoading] = useState(true); // State to show a loading indicator
     const [error, setError] = useState(null); // State to show an error message
+    const [tag, setTag] = useState(''); // State to show a topic
     const [selectedDictionary, setSelectedDictionary] = useState(0);
-
 
 
     const changeTag = (id) => {
         setSelectedDictionary(id)
         setTag(dictionaries[id].tags[0])
     }
-
-
-
 
     useEffect(() => {
         // Fetch data from an API
@@ -53,3 +50,8 @@ const DictionarySelector = ({setTag}) => {
 };
 
 export default DictionarySelector;
+
+//Link for geology: https://1rnoszgn46.execute-api.us-east-1.amazonaws.com/only-words?tag=geology
+//Link for chemistry: https://1rnoszgn46.execute-api.us-east-1.amazonaws.com/only-words?tag=chemistry
+//Link for medical: https://1rnoszgn46.execute-api.us-east-1.amazonaws.com/only-words?tag=medical
+//Link for biology: https://1rnoszgn46.execute-api.us-east-1.amazonaws.com/only-words?tag=biology

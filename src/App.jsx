@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import './App.css'
 import DictionarySelector from './components/DictionarySelector'; 
-import Dummy from './components/Dummy';
 import { useState } from 'react';
+import WordSearch from './components/WordSearch';
 
 function App() {
   const [tag, setTag ] = useState('');
   return (
     <>
     <DictionarySelector setTag={setTag} />
-    <Dummy tag={tag} />
+    <WordSearch tag={tag} />
     </>
   )
 }
